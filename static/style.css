@@ -1,4 +1,20 @@
+/* ===== Colours (defined once, used everywhere) ===== */
+:root {
+    --primary: #1d4ed8;
+    --primary-dark: #1e40af;
+    --hero-from: #1e3a8a;
+    --hero-to: #2563eb;
 
+    --text: #0f172a;
+    --muted: #475569;
+    --faint: #64748b;
+    --border: #e2e8f0;
+    --page: #f1f5f9;
+    --card: #ffffff;
+
+    --shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 6px 20px rgba(15, 23, 42, 0.06);
+    --radius: 12px;
+}
 
 * {
     box-sizing: border-box;
@@ -7,12 +23,44 @@
 body {
     margin: 0;
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    line-height: 1.5;
-    color: #1f2933;
-    background: #f5f7fa;
+    line-height: 1.55;
+    color: var(--text);
+    background: var(--page);
 }
 
-header,
+[hidden] {
+    display: none !important;
+}
+
+:focus-visible {
+    outline: 3px solid #93c5fd;
+    outline-offset: 2px;
+}
+
+
+/* ===== Header band ===== */
+.hero {
+    padding: 48px 16px 96px;
+    color: #fff;
+    text-align: center;
+    background: linear-gradient(135deg, var(--hero-from), var(--hero-to));
+}
+
+.hero h1 {
+    margin: 0 0 8px;
+    font-size: clamp(1.9rem, 4vw, 2.6rem);
+    letter-spacing: -0.02em;
+}
+
+.tagline {
+    max-width: 560px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+    color: #dbeafe;
+}
+
+
+/* ===== Layout and cards ===== */
 main,
 footer {
     max-width: 760px;
@@ -20,38 +68,53 @@ footer {
     padding: 0 16px;
 }
 
-header {
-    padding-top: 32px;
+/* Pulls the first card up so it overlaps the header band */
+main {
+    margin-top: -64px;
 }
 
-h1 {
-    margin-bottom: 4px;
+.card {
+    margin-bottom: 20px;
+    padding: 24px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
 }
 
-.tagline {
+.card h3 {
     margin-top: 0;
-    color: #52606d;
 }
 
-/* Privacy notice */
+
+/* ===== Privacy notice ===== */
 .notice {
-    margin: 24px 0;
-    padding: 12px 16px;
-    border-left: 4px solid #3b82f6;
-    background: #eaf2ff;
-    border-radius: 4px;
+    display: flex;
+    gap: 10px;
+    margin-bottom: 22px;
+    padding: 12px 14px;
+    font-size: 0.92rem;
+    color: #1e3a8a;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 10px;
 }
 
-/* Form */
-form {
-    padding: 20px;
-    background: #fff;
-    border: 1px solid #d9e2ec;
-    border-radius: 8px;
+.notice p {
+    margin: 0;
 }
 
+.notice svg {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    margin-top: 1px;
+}
+
+
+/* ===== Form ===== */
 .field {
-    margin-bottom: 16px;
+    margin-bottom: 20px;
 }
 
 label {
@@ -60,161 +123,399 @@ label {
     font-weight: 600;
 }
 
-textarea,
+.hint {
+    margin: 6px 0 0;
+    font-size: 0.85rem;
+    color: var(--faint);
+}
+
 input[type="file"] {
     width: 100%;
+    padding: 16px;
     font: inherit;
-}
-
-textarea {
-    padding: 8px;
-    border: 1px solid #bcccdc;
-    border-radius: 4px;
-    resize: vertical;
-}
-
-button {
-    padding: 10px 20px;
-    font: inherit;
-    font-weight: 600;
-    color: #fff;
-    background: #2563eb;
-    border: none;
-    border-radius: 6px;
+    color: var(--muted);
+    background: #f8fafc;
+    border: 2px dashed #cbd5e1;
+    border-radius: 10px;
     cursor: pointer;
 }
 
-button:hover {
-    background: #1d4ed8;
+input[type="file"]:hover {
+    border-color: var(--primary);
 }
 
+input[type="file"]::file-selector-button {
+    margin-right: 14px;
+    padding: 8px 14px;
+    font: inherit;
+    font-weight: 600;
+    color: var(--primary);
+    background: #fff;
+    border: 1px solid #bfdbfe;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+textarea {
+    width: 100%;
+    padding: 12px;
+    font: inherit;
+    color: var(--text);
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    resize: vertical;
+}
+
+textarea:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+}
+
+button {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 14px 20px;
+    font: inherit;
+    font-size: 1.02rem;
+    font-weight: 600;
+    color: #fff;
+    background: var(--primary);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+button:hover {
+    background: var(--primary-dark);
+}
+
+/* While an analysis runs, app.js disables the button: show a spinner */
 button:disabled {
-    background: #9aa5b1;
+    background: #64748b;
     cursor: wait;
 }
 
-/* Loading and error messages */
+button:disabled::before {
+    content: "";
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.45);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* ===== Loading and error messages ===== */
 #status {
-    margin: 16px 0;
-    padding: 12px 16px;
-    border-radius: 4px;
-    background: #fff;
-    border: 1px solid #d9e2ec;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 14px 16px;
+    color: #1e3a8a;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+#status:not(.error)::before {
+    content: "";
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #bfdbfe;
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
 }
 
 #status.error {
-    color: #9b1c1c;
-    background: #fdecec;
-    border-color: #f5b5b5;
+    color: #991b1b;
+    background: #fef2f2;
+    border-color: #fecaca;
 }
 
-[hidden] {
-    display: none !important;
+#status.error::before {
+    content: "!";
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    font-weight: 700;
+    color: #fff;
+    background: #dc2626;
+    border-radius: 50%;
 }
 
-/* Results */
-#results {
-    margin-top: 32px;
+
+/* ===== Results: summary and counts ===== */
+.eyebrow {
+    margin: 0 0 4px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--primary);
+    text-transform: uppercase;
 }
 
+#job-title {
+    margin: 0 0 8px;
+}
+
+#summary {
+    margin: 0 0 20px;
+    color: var(--muted);
+}
+
+/* Each tile is built by app.js as <li class="status-..."><span class="count">2</span> Label</li> */
 .counts {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 0;
     padding: 0;
     list-style: none;
 }
 
 .counts li {
-    padding: 8px 12px;
-    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    font-size: 0.85rem;
+    color: var(--muted);
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-top: 4px solid var(--tone);
+    border-radius: 10px;
 }
 
 .count {
+    font-size: 1.7rem;
     font-weight: 700;
-    font-size: 1.2em;
+    line-height: 1.2;
+    color: var(--tone-ink);
+}
+
+
+/* ===== Results: requirement cards ===== */
+.section-title {
+    margin: 28px 0 12px;
 }
 
 .requirement {
-    margin-bottom: 16px;
-    padding: 16px;
-    background: #fff;
-    border: 1px solid #d9e2ec;
-    border-radius: 8px;
+    margin-bottom: 14px;
+    padding: 18px 20px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 5px solid #cbd5e1;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
 }
+
+/* The card's left edge takes the colour of its status badge (no JavaScript needed) */
+.requirement:has(.status-strong_evidence) { border-left-color: #16a34a; }
+.requirement:has(.status-partial_evidence) { border-left-color: #d97706; }
+.requirement:has(.status-not_identified) { border-left-color: #94a3b8; }
+.requirement:has(.status-needs_review) { border-left-color: #7c3aed; }
 
 .requirement-header {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
     gap: 8px;
+    align-items: center;
+    margin-bottom: 6px;
 }
 
 .requirement-header h4 {
-    margin: 0;
-    margin-right: auto;
+    margin: 0 auto 0 0;
+    font-size: 1.05rem;
 }
 
 .badge {
-    padding: 2px 10px;
-    font-size: 0.85em;
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+    padding: 3px 10px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--tone-ink, var(--muted));
+    background: var(--tone-soft, #f1f5f9);
     border-radius: 999px;
 }
 
-.priority {
-    background: #e4e7eb;
+.badge.priority {
+    border: 1px solid var(--border);
 }
 
-.label {
-    margin: 12px 0 4px;
-    font-size: 0.85em;
-    font-weight: 600;
-    color: #52606d;
+/* The coloured dot in front of a status badge */
+.badge[class*="status-"]::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    background: var(--tone);
+    border-radius: 50%;
+}
+
+/* ".requirement .label", not just ".label": it must beat ".requirement p" below,
+   which would otherwise remove the space above each label */
+.requirement .label {
+    margin: 14px 0 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--faint);
     text-transform: uppercase;
 }
 
 .requirement p {
     margin-top: 0;
+    margin-bottom: 0;
 }
 
 blockquote {
+    position: relative;
     margin: 0 0 8px;
-    padding: 8px 12px;
-    border-left: 3px solid #bcccdc;
-    background: #f5f7fa;
+    padding: 10px 14px 10px 34px;
     font-style: italic;
+    color: #334155;
+    background: #f8fafc;
+    border-left: 3px solid #cbd5e1;
+    border-radius: 0 8px 8px 0;
 }
 
-/* One color per status value; the class names match the API's status values */
-.status-strong_evidence {
-    background: #e3f9e5;
-    color: #05400a;
+blockquote::before {
+    content: "\201C";
+    position: absolute;
+    top: 0;
+    left: 10px;
+    font-size: 2rem;
+    line-height: 1.3;
+    color: #94a3b8;
 }
 
-.status-partial_evidence {
-    background: #fff3c4;
-    color: #5c4813;
+.suggestion {
+    padding: 10px 14px;
+    color: #1e3a8a;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 8px;
 }
 
-.status-not_identified {
-    background: #e4e7eb;
-    color: #323f4b;
+
+/* ===== Status colours: one set per value the API sends ===== */
+.status-strong_evidence { --tone: #16a34a; --tone-soft: #dcfce7; --tone-ink: #166534; }
+.status-partial_evidence { --tone: #d97706; --tone-soft: #fef3c7; --tone-ink: #92400e; }
+.status-not_identified { --tone: #94a3b8; --tone-soft: #e2e8f0; --tone-ink: #334155; }
+.status-needs_review { --tone: #7c3aed; --tone-soft: #ede9fe; --tone-ink: #5b21b6; }
+
+
+/* ===== Results: strengths and priorities ===== */
+.check-list,
+.steps {
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
-.status-needs_review {
-    background: #dceefb;
-    color: #0b4f8a;
+.check-list li,
+.steps li {
+    position: relative;
+    margin-bottom: 10px;
+    padding-left: 34px;
+}
+
+.check-list li::before {
+    content: "\2713";
+    position: absolute;
+    top: 1px;
+    left: 0;
+    display: grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #166534;
+    background: #dcfce7;
+    border-radius: 50%;
+}
+
+.steps {
+    counter-reset: step;
+}
+
+.steps li {
+    counter-increment: step;
+}
+
+.steps li::before {
+    content: counter(step);
+    position: absolute;
+    top: 1px;
+    left: 0;
+    display: grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #fff;
+    background: var(--primary);
+    border-radius: 50%;
 }
 
 .disclaimer {
-    margin-top: 24px;
-    font-size: 0.9em;
-    color: #52606d;
+    margin: 8px 0 0;
+    font-size: 0.85rem;
+    color: var(--faint);
+    text-align: center;
 }
 
+
+/* ===== Footer ===== */
 footer {
-    padding-top: 24px;
+    margin-top: 32px;
+    padding-top: 20px;
     padding-bottom: 32px;
-    font-size: 0.85em;
-    color: #7b8794;
+    font-size: 0.85rem;
+    color: var(--faint);
+    text-align: center;
+    border-top: 1px solid var(--border);
+}
+
+
+/* ===== Small screens ===== */
+@media (max-width: 600px) {
+    .hero {
+        padding: 36px 16px 84px;
+    }
+
+    .card {
+        padding: 18px;
+    }
+
+    .counts {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    button:disabled::before,
+    #status:not(.error)::before {
+        animation: none;
+    }
 }

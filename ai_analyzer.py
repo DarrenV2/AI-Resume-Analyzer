@@ -11,7 +11,9 @@ from google.genai import types
 from prompt import build_prompt
 from schemas import ResumeAnalysis
 
-GEMINI_MODEL = "gemini-3.5-flash"
+# A "lite" model: in testing it gave the same verdicts as the bigger models, about 4x faster,
+# and it was available while the larger Flash models were overloaded
+GEMINI_MODEL = "gemini-3.5-flash-lite"
 # The SDK has no timeout by default (it waits forever). In milliseconds; the SDK also sends
 # it to Gemini as a deadline, and Gemini rejects any deadline under 10 s
 GEMINI_TIMEOUT_MS = 60_000
