@@ -7,10 +7,14 @@ routes in main.py, so the analysis logic can be tested on its own
 import os
 from dotenv import load_dotenv
 from google import genai
+from google.genai import types
 from prompt import build_prompt
 from schemas import ResumeAnalysis
 
 GEMINI_MODEL = "gemini-3.5-flash"
+# The SDK has no timeout by default (it waits forever). In milliseconds; the SDK also sends
+# it to Gemini as a deadline, and Gemini rejects any deadline under 10 s
+GEMINI_TIMEOUT_MS = 60_000
 
 
 class MissingAPIKeyError(Exception):
@@ -45,11 +49,13 @@ def analyze_resume(resume_text: str, job_description: str) -> ResumeAnalysis:
 
     Raises:
         MissingAPIKeyError: GEMINI_API_KEY is missing or empty.
-        google.genai.errors.APIError: the Gemini request failed (e.g. 503 when it's busy).
+        google.genai.errors.APIError: the Gemini request failed (e.g. 503 when it's busy,
+            or 504 when it passed the GEMINI_TIMEOUT_MS deadline).
+        httpx.TimeoutException: the request timed out on our side (e.g. Google unreachable).
         pydantic.ValidationError: Gemini's reply doesn't match ResumeAnalysis.
     """
     api_key = get_api_key()
-    client = genai.Client(api_key=api_key)
+    client = genai.Client(api_key=api_key, http_options=types.HttpOptions(timeout=GEMINI_TIMEOUT_MS))
 
     response = client.models.generate_content(
         model=GEMINI_MODEL,

@@ -1,0 +1,220 @@
+
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.5;
+    color: #1f2933;
+    background: #f5f7fa;
+}
+
+header,
+main,
+footer {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+header {
+    padding-top: 32px;
+}
+
+h1 {
+    margin-bottom: 4px;
+}
+
+.tagline {
+    margin-top: 0;
+    color: #52606d;
+}
+
+/* Privacy notice */
+.notice {
+    margin: 24px 0;
+    padding: 12px 16px;
+    border-left: 4px solid #3b82f6;
+    background: #eaf2ff;
+    border-radius: 4px;
+}
+
+/* Form */
+form {
+    padding: 20px;
+    background: #fff;
+    border: 1px solid #d9e2ec;
+    border-radius: 8px;
+}
+
+.field {
+    margin-bottom: 16px;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+textarea,
+input[type="file"] {
+    width: 100%;
+    font: inherit;
+}
+
+textarea {
+    padding: 8px;
+    border: 1px solid #bcccdc;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+button {
+    padding: 10px 20px;
+    font: inherit;
+    font-weight: 600;
+    color: #fff;
+    background: #2563eb;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+button:disabled {
+    background: #9aa5b1;
+    cursor: wait;
+}
+
+/* Loading and error messages */
+#status {
+    margin: 16px 0;
+    padding: 12px 16px;
+    border-radius: 4px;
+    background: #fff;
+    border: 1px solid #d9e2ec;
+}
+
+#status.error {
+    color: #9b1c1c;
+    background: #fdecec;
+    border-color: #f5b5b5;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+/* Results */
+#results {
+    margin-top: 32px;
+}
+
+.counts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0;
+    list-style: none;
+}
+
+.counts li {
+    padding: 8px 12px;
+    border-radius: 6px;
+}
+
+.count {
+    font-weight: 700;
+    font-size: 1.2em;
+}
+
+.requirement {
+    margin-bottom: 16px;
+    padding: 16px;
+    background: #fff;
+    border: 1px solid #d9e2ec;
+    border-radius: 8px;
+}
+
+.requirement-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+
+.requirement-header h4 {
+    margin: 0;
+    margin-right: auto;
+}
+
+.badge {
+    padding: 2px 10px;
+    font-size: 0.85em;
+    border-radius: 999px;
+}
+
+.priority {
+    background: #e4e7eb;
+}
+
+.label {
+    margin: 12px 0 4px;
+    font-size: 0.85em;
+    font-weight: 600;
+    color: #52606d;
+    text-transform: uppercase;
+}
+
+.requirement p {
+    margin-top: 0;
+}
+
+blockquote {
+    margin: 0 0 8px;
+    padding: 8px 12px;
+    border-left: 3px solid #bcccdc;
+    background: #f5f7fa;
+    font-style: italic;
+}
+
+/* One color per status value; the class names match the API's status values */
+.status-strong_evidence {
+    background: #e3f9e5;
+    color: #05400a;
+}
+
+.status-partial_evidence {
+    background: #fff3c4;
+    color: #5c4813;
+}
+
+.status-not_identified {
+    background: #e4e7eb;
+    color: #323f4b;
+}
+
+.status-needs_review {
+    background: #dceefb;
+    color: #0b4f8a;
+}
+
+.disclaimer {
+    margin-top: 24px;
+    font-size: 0.9em;
+    color: #52606d;
+}
+
+footer {
+    padding-top: 24px;
+    padding-bottom: 32px;
+    font-size: 0.85em;
+    color: #7b8794;
+}

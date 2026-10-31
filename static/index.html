@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AI Resume Analyzer</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+
+</head>
+
+<body>
+    <header>
+        <h1>AI Resume Analyzer</h1>
+        <p class="tagline">See how well your resume's evidence supports each requirement in a job description.</p>
+    </header>
+
+    <main>
+        <aside class="notice">
+            <strong>Privacy:</strong> your resume text is sent to Google's Gemini API for analysis.
+            On the free tier, Google may use it to improve its products.
+            Only upload a resume you're comfortable sharing.
+        </aside>
+
+        <!-- The name attributes must match the parameter names of POST /analyze -->
+        <form id="analyze-form">
+            <div class="field">
+                <label for="resume">Resume (PDF or DOCX, max 5 MB)</label>
+                <input type="file" id="resume" name="resume" accept=".pdf,.docx" required>
+            </div>
+
+            <div class="field">
+                <label for="job_description">Job description</label>
+                <textarea id="job_description" name="job_description" rows="10"
+                          placeholder="Paste the full job description here" required></textarea>
+            </div>
+
+            <button type="submit" id="analyze-button">Analyze resume</button>
+        </form>
+
+        <!-- Shows the loading message and API errors; hidden until needed -->
+        <div id="status" role="status" aria-live="polite" hidden></div>
+
+        <!-- Hidden until app.js has an analysis to show; app.js fills the empty elements -->
+        <section id="results" hidden>
+            <h2 id="job-title"></h2>
+            <p id="summary"></p>
+
+            <ul class="counts" id="counts"></ul>
+
+            <h3>Requirements</h3>
+            <!-- One card per requirement, built by app.js in this shape (style.css relies on it):
+                 <article class="requirement">
+                     <div class="requirement-header">
+                         <h4>name</h4>
+                         <span class="badge priority">Required</span>
+                         <span class="badge status-partial_evidence">Partial evidence</span>
+                     </div>
+                     <p class="label">Evidence from your resume</p>  <blockquote>quote</blockquote>
+                     <p class="label">Reasoning</p>                  <p>...</p>
+                     <p class="label">Suggestion</p>                 <p class="suggestion">...</p>
+                 </article> -->
+            <div id="requirements"></div>
+
+            <h3>Strengths</h3>
+            <ul id="strengths"></ul>
+
+            <h3>Improvement priorities</h3>
+            <ol id="improvement-priorities"></ol>
+
+            <p class="disclaimer">
+                These findings describe the evidence in your resume, not your full abilities or your
+                chances of being hired. "Not identified" means the resume doesn't mention it, not that
+                you lack the skill.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <p>Built and designed by Darren Drummond</p>
+    </footer>
+</body>
+</html>

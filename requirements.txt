@@ -1,0 +1,18 @@
+
+# Web server and API 
+fastapi[standard]==0.162.0
+pydantic==2.14.1
+
+# Reading resumes
+pymupdf==2.0
+python-docx==1.2.0
+
+# AI analysis
+google-genai==2.34.0
+python-dotenv==1.2.4
+
+# Already installed with google-genai, but listed because main.py imports it to catch timeouts
+httpx==0.28.1
+
+# Testing
+pytest==9.1.1
