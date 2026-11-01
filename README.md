@@ -112,7 +112,7 @@ Every failure gets a clear message instead of a crash:
 
 - Check that every quote really appears in the resume
 - Read DOCX tables, and add OCR for scanned PDFs
-- Split the analysis into stages (extract requirements → extract evidence → match), so each step can be tested and checked on its own
+
 
 ## Disclaimer
 
